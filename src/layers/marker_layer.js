@@ -1,13 +1,31 @@
 import React from "react"
 import { Marker, Popup } from "react-leaflet"
 import { defaultIcon } from "../icons/defaultIcon"
-import { Card } from "antd"
+import { Button, Card, InputNumber, Space } from "antd"
 
-const PopupStatics = () => {
+const PopupStatistics = ({ feature }) => {
+  const { NAME, ADM0NAME, POP_MAX } = feature.properties
   return (
-    <Card type="inner" title="Name">
-      Inner Card content
-    </Card>
+    <>
+      <Card type="inner" title="Name">
+        <b>{`${NAME}, ${ADM0NAME}`}</b>
+      </Card>
+      <Card type="inner" title="Population">
+        <b>{`${POP_MAX}`}</b>
+      </Card>
+      <Card type="inner" title="Radius Filter">
+        <Space>
+          <InputNumber
+            defaultValue={3000}
+            min={0}
+            onChange={e => console.log(e)}
+          ></InputNumber>
+          <Button type="primary" shape="round">
+            Filter by km
+          </Button>
+        </Space>
+      </Card>
+    </>
   )
 }
 export const MarkerLayer = ({ data }) => {
@@ -20,7 +38,7 @@ export const MarkerLayer = ({ data }) => {
         icon={defaultIcon}
       >
         <Popup>
-          <PopupStatics />
+          <PopupStatistics feature={feature} />
         </Popup>
       </Marker>
     )
