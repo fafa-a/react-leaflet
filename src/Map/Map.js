@@ -1,7 +1,10 @@
 import React from "react"
 import { MapContainer, TileLayer } from "react-leaflet"
 import { MarkerLayer } from "../layers/marker_layer"
+import { MarkerLayerWithTooltip } from "../layers/marker_layer_with_tooltip"
+
 import { cities } from "../data/cities"
+import { mountains } from "../data/highest-points"
 
 export const Map = () => {
   return (
@@ -11,6 +14,7 @@ export const Map = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <MarkerLayer data={cities} />
+      <MarkerLayerWithTooltip data={mountains} />
     </MapContainer>
   )
 }
