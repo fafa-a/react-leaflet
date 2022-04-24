@@ -1,24 +1,7 @@
 import React from "react"
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
-import { defaultIcon } from "../icons/defaultIcon"
+import { MapContainer, TileLayer } from "react-leaflet"
+import { MarkerLayer } from "../layers/marker_layer"
 import { cities } from "../data/cities"
-
-const MarkerLayer = ({ data }) => {
-  return data.features.map(feature => {
-    const { coordinates } = feature.geometry
-    return (
-      <Marker
-        key={String(coordinates)}
-        position={[coordinates[1], coordinates[0]]}
-        icon={defaultIcon}
-      >
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-    )
-  })
-}
 
 export const Map = () => {
   return (
