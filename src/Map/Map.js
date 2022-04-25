@@ -46,7 +46,9 @@ export const Map = () => {
         />
       </LayersControl>
       <FitBoundToDataControl />
-      <ShowActiveFiltersControl />
+      <ShowActiveFiltersControl
+        getFilters={() => ({ geoFilter, radiusFilter })}
+      />
     </MapContainer>
   )
 }
