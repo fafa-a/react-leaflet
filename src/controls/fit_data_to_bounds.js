@@ -23,7 +23,7 @@ Control.FitBoundToDataControl = Control.extend({
       map.fitBounds(latLngs)
     }
     const commonProps = {
-      classNam: "leaflet-control-layers",
+      className: "leaflet-control-layers",
       style: {
         width: "33px",
         height: "33px",
