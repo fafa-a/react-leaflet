@@ -35,7 +35,7 @@ export const MarkerLayerWithTooltip = ({ data }) => {
     )
   })
   return (
-    <LayersControl.Overlay checked name="Highest points">
+    <LayersControl.Overlay name="Highest points">
       <LayerGroup>{layer}</LayerGroup>
     </LayersControl.Overlay>
   )

@@ -27,8 +27,6 @@ export const ContinentsPolygonLayer = ({
     ></GeoJSON>
   )
   return (
-    <LayersControl.Overlay checked name="Continents">
-      {layer}
-    </LayersControl.Overlay>
+    <LayersControl.Overlay name="Continents">{layer}</LayersControl.Overlay>
   )
 }
