@@ -11,6 +11,9 @@ import { cities } from "../data/cities"
 import { mountains } from "../data/highest-points"
 
 export const Map = () => {
+  const [geoFilter, setGeoFilter] = useState(null)
+  const getGeoFilter = () => geoFilter
+
   const [radiusFilter, setRadiusFilter] = useState(null)
   const getRadiusFilter = () => radiusFilter
 
@@ -30,7 +33,11 @@ export const Map = () => {
         radiusFilter={radiusFilter}
         setRadiusFilter={setRadiusFilter}
       />
-      <ContinentsPolygonLayer data={continents} />
+      <ContinentsPolygonLayer
+        data={continents}
+        setGeoFilter={setGeoFilter}
+        getGeoFilter={getGeoFilter}
+      />
     </MapContainer>
   )
 }
