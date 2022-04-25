@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet"
 
 import { MarkerLayer } from "../layers/marker_layer"
@@ -19,6 +19,19 @@ export const Map = () => {
   const [radiusFilter, setRadiusFilter] = useState(null)
   const getRadiusFilter = () => radiusFilter
 
+  const [asyncCities, setAsyncCities] = useState({ features: [] })
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_populated_places_simple.geojson"
+      )
+      const cities = await response.json()
+      setAsyncCities(cities)
+    }
+    fetchData().catch(console.error)
+  }, [])
+  console.log(asyncCities)
+
   return (
     <MapContainer center={[0, 0]} zoom={1} scrollWheelZoom={true}>
       <LayersControl position="topright">
@@ -35,7 +48,7 @@ export const Map = () => {
           />
         </LayersControl.BaseLayer>
         <MarkerLayer
-          data={cities}
+          data={asyncCities}
           setRadiusFilter={setRadiusFilter}
           getRadiusFilter={getRadiusFilter}
           getGeoFilter={getGeoFilter}
