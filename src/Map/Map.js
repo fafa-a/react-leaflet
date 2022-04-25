@@ -7,7 +7,7 @@ import { RadiusFilteR } from "../layers/radius_filter"
 import { ContinentsPolygonLayer } from "../layers/continents_polygon_layer"
 import { FitBoundToDataControl } from "../controls/fit_data_to_bounds"
 import { ShowActiveFiltersControl } from "../controls/show_active_filters"
-
+import { MarkerLayerWithTooltipCluster } from "../layers/marker_layer_with_tooltip_cluster"
 import { continents } from "../data/continents"
 import { cities } from "../data/cities"
 import { mountains } from "../data/highest-points"
@@ -54,6 +54,7 @@ export const Map = () => {
           getGeoFilter={getGeoFilter}
         />
         <MarkerLayerWithTooltip data={mountains} />
+        <MarkerLayerWithTooltipCluster data={cities} />
         <RadiusFilteR
           radiusFilter={radiusFilter}
           setRadiusFilter={setRadiusFilter}
