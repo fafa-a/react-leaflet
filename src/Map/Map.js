@@ -34,11 +34,7 @@ export const Map = () => {
         radiusFilter={radiusFilter}
         setRadiusFilter={setRadiusFilter}
       />
-      <ContinentsPolygonLayer
-        data={continents}
-        setGeoFilter={setGeoFilter}
-        getGeoFilter={getGeoFilter}
-      />
+      <ContinentsPolygonLayer data={continents} setGeoFilter={setGeoFilter} />
     </MapContainer>
   )
 }
