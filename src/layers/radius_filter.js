@@ -13,6 +13,9 @@ export const RadiusFilteR = ({ radiusFilter, setRadiusFilter }) => {
             setRadiusFilter(null)
           },
         }}
+        color={"gray"}
+        weight={1}
+        fillOpacity={0.4}
       />
     )
   } else {
