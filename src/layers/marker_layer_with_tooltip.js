@@ -1,5 +1,11 @@
 import React from "react"
-import { LayersControl, Marker, Tooltip, useMap } from "react-leaflet"
+import {
+  LayersControl,
+  LayerGroup,
+  Marker,
+  Tooltip,
+  useMap,
+} from "react-leaflet"
 import { mountainIcon } from "../icons/mountainIcon"
 
 export const MarkerLayerWithTooltip = ({ data }) => {
@@ -30,7 +36,7 @@ export const MarkerLayerWithTooltip = ({ data }) => {
   })
   return (
     <LayersControl.Overlay checked name="Highest points">
-      {layer}
+      <LayerGroup>{layer}</LayerGroup>
     </LayersControl.Overlay>
   )
 }

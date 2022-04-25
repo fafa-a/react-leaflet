@@ -1,6 +1,6 @@
 import L from "leaflet"
 import { useState } from "react"
-import { LayersControl, Marker, Popup } from "react-leaflet"
+import { LayersControl, LayerGroup, Marker, Popup } from "react-leaflet"
 import { defaultIcon } from "../icons/defaultIcon"
 import { Button, Card, InputNumber, Space } from "antd"
 import { FilterOutlined } from "@ant-design/icons"
@@ -117,7 +117,7 @@ export const MarkerLayer = ({
     })
   return (
     <LayersControl.Overlay checked name="World Cities">
-      {layer}
+      <LayerGroup>{layer}</LayerGroup>
     </LayersControl.Overlay>
   )
 }
