@@ -1,3 +1,7 @@
+import ReactDOM from "react-dom"
+import { Button } from "antd"
+import { BorderOuterOutlined } from "@ant-design/icons"
+
 import { createControlComponent } from "@react-leaflet/core"
 import { Control, DomUtil } from "leaflet"
 
@@ -8,7 +12,14 @@ Control.FitBoundToDataControl = Control.extend({
     position: "topleft",
   },
   onAdd: function (map) {
-    console.log("added to map", map)
+    ReactDOM.render(
+      <Button
+        title="Fit bounds to world"
+        icon={<BorderOuterOutlined />}
+        onClick={() => map.fitWorld()}
+      ></Button>,
+      node
+    )
     return node
   },
   onRemove: function (map) {},
