@@ -8,9 +8,11 @@ import { ContinentsPolygonLayer } from "../layers/continents_polygon_layer"
 import { FitBoundToDataControl } from "../controls/fit_data_to_bounds"
 import { ShowActiveFiltersControl } from "../controls/show_active_filters"
 import { MarkerLayerWithTooltipCluster } from "../layers/marker_layer_with_tooltip_cluster"
+import { MarkerLayerWithTooltipReproject } from "../layers/marker_layer_with_tooltip_reproject"
 import { continents } from "../data/continents"
 import { cities } from "../data/cities"
 import { mountains } from "../data/highest-points"
+import { irishCities2157 } from "../data/irish_cities_2157"
 
 export const Map = () => {
   const [geoFilter, setGeoFilter] = useState(null)
@@ -55,6 +57,7 @@ export const Map = () => {
         />
         <MarkerLayerWithTooltip data={mountains} />
         <MarkerLayerWithTooltipCluster data={cities} />
+        <MarkerLayerWithTooltipReproject data={irishCities2157} />
         <RadiusFilteR
           radiusFilter={radiusFilter}
           setRadiusFilter={setRadiusFilter}
