@@ -5,6 +5,7 @@ import { MarkerLayer } from "../layers/marker_layer"
 import { MarkerLayerWithTooltip } from "../layers/marker_layer_with_tooltip"
 import { RadiusFilteR } from "../layers/radius_filter"
 import { ContinentsPolygonLayer } from "../layers/continents_polygon_layer"
+import { FitBoundToDataControl } from "../controls/fit_data_to_bounds"
 
 import { continents } from "../data/continents"
 import { cities } from "../data/cities"
@@ -43,6 +44,7 @@ export const Map = () => {
           getGeoFilter={getGeoFilter}
         />
       </LayersControl>
+      <FitBoundToDataControl />
     </MapContainer>
   )
 }
