@@ -14,6 +14,11 @@ Control.FitBoundToDataControl = Control.extend({
   onAdd: function (map) {
     ReactDOM.render(
       <Button
+        className="leaflet-control-layers"
+        style={{
+          width: "33px",
+          height: "33px",
+        }}
         title="Fit bounds to world"
         icon={<BorderOuterOutlined />}
         onClick={() => map.fitWorld()}
