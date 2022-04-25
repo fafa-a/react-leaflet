@@ -1,4 +1,4 @@
-import { GeoJSON } from "react-leaflet"
+import { GeoJSON, LayersControl } from "react-leaflet"
 
 export const ContinentsPolygonLayer = ({
   data,
@@ -6,7 +6,7 @@ export const ContinentsPolygonLayer = ({
   getGeoFilter,
 }) => {
   const geoFilter = getGeoFilter()
-  return (
+  const layer = (
     <GeoJSON
       key="geo-json-layer"
       data={data}
@@ -25,5 +25,10 @@ export const ContinentsPolygonLayer = ({
         }
       }}
     ></GeoJSON>
+  )
+  return (
+    <LayersControl.Overlay checked name="Continents">
+      {layer}
+    </LayersControl.Overlay>
   )
 }

@@ -1,6 +1,6 @@
 import L from "leaflet"
 import { useState } from "react"
-import { Marker, Popup } from "react-leaflet"
+import { LayersControl, Marker, Popup } from "react-leaflet"
 import { defaultIcon } from "../icons/defaultIcon"
 import { Button, Card, InputNumber, Space } from "antd"
 import { FilterOutlined } from "@ant-design/icons"
@@ -72,7 +72,7 @@ export const MarkerLayer = ({
     centerPoint = L.latLng(coordinates[1], coordinates[0])
   }
 
-  return data.features
+  const layer = data.features
     .filter(currentFeature => {
       let filterByRadius
       let filterByGeo
@@ -115,4 +115,9 @@ export const MarkerLayer = ({
         </Marker>
       )
     })
+  return (
+    <LayersControl.Overlay checked name="World Cities">
+      {layer}
+    </LayersControl.Overlay>
+  )
 }
