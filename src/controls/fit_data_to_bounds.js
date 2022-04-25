@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom"
+import ReactDOM, { unmountComponentAtNode } from "react-dom"
 import { Button } from "antd"
 import { BorderInnerOutlined, BorderOuterOutlined } from "@ant-design/icons"
 
@@ -22,34 +22,35 @@ Control.FitBoundToDataControl = Control.extend({
       })
       map.fitBounds(latLngs)
     }
+    const commonProps = {
+      classNam: "leaflet-control-layers",
+      style: {
+        width: "33px",
+        height: "33px",
+      },
+    }
     ReactDOM.render(
-      <>
+      <div className="fit-bounds-control-container">
         <Button
-          className="leaflet-control-layers"
-          style={{
-            width: "33px",
-            height: "33px",
-          }}
+          {...commonProps}
           title="Fit bounds to data"
           icon={<BorderInnerOutlined />}
           onClick={() => doFitDataToBounds()}
         ></Button>
         <Button
-          className="leaflet-control-layers"
-          style={{
-            width: "33px",
-            height: "33px",
-          }}
+          {...commonProps}
           title="Fit bounds to world"
           icon={<BorderOuterOutlined />}
           onClick={() => map.fitWorld()}
         ></Button>
-      </>,
+      </div>,
       node
     )
     return node
   },
-  onRemove: function (map) {},
+  onRemove: function (map) {
+    unmountComponentAtNode(node)
+  },
 })
 
 export const FitBoundToDataControl = createControlComponent(
