@@ -9,6 +9,7 @@ import { FitBoundToDataControl } from "../controls/fit_data_to_bounds"
 import { ShowActiveFiltersControl } from "../controls/show_active_filters"
 import { MarkerLayerWithTooltipCluster } from "../layers/marker_layer_with_tooltip_cluster"
 import { MarkerLayerWithTooltipReproject } from "../layers/marker_layer_with_tooltip_reproject"
+
 import { continents } from "../data/continents"
 import { cities } from "../data/cities"
 import { mountains } from "../data/highest-points"
@@ -32,7 +33,6 @@ export const Map = () => {
     }
     fetchData().catch(console.error)
   }, [])
-  console.log(asyncCities)
 
   return (
     <MapContainer center={[0, 0]} zoom={1} scrollWheelZoom={true}>

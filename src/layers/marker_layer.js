@@ -10,14 +10,16 @@ const DEFAULT_RADIUS = 3000
 
 const PopupStatistics = ({ feature, setRadiusFilter }) => {
   const [radius, setRadius] = useState(DEFAULT_RADIUS)
-  const { NAME, ADM0NAME, POP_MAX } = feature.properties
+  const { name, adm0name, pop_max } = feature.properties
+  console.log(feature.properties)
+
   return (
     <>
       <Card type="inner" title="Name" style={{ marginTop: 16 }}>
-        <b>{`${NAME}, ${ADM0NAME}`}</b>
+        <b>{`${name}, ${adm0name}`}</b>
       </Card>
       <Card type="inner" title="Population" style={{ marginTop: 16 }}>
-        <b>{`${POP_MAX}`}</b>
+        <b>{`${pop_max}`}</b>
       </Card>
       <Card type="inner" title="Radius Filter" style={{ marginTop: 16 }}>
         <Space>
