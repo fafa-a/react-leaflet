@@ -1,5 +1,10 @@
 import { Circle, LayersControl } from "react-leaflet"
 
+/**
+ * @param {Object} radiusFilter
+ * @param {Function} setRadiusFilter
+ * @returns
+ */
 export const RadiusFilteR = ({ radiusFilter, setRadiusFilter }) => {
   if (radiusFilter) {
     const { coordinates } = radiusFilter.feature.geometry

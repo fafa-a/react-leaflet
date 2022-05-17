@@ -8,6 +8,13 @@ import {
 } from "react-leaflet"
 import { mountainIcon } from "../icons/mountainIcon"
 
+/**
+ * Component to diplay a marker layer and tooltip for mountain peaks
+ *
+ * @component
+ * @param {object} data
+ * @returns {LayersControl.Overlay}
+ */
 export const MarkerLayerWithTooltip = ({ data }) => {
   const leafletMap = useMap()
   const layer = data.features.map(feature => {

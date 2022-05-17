@@ -1,5 +1,5 @@
 import L from "leaflet"
-import { useState } from "react"
+import React, { useState } from "react"
 import { LayersControl, LayerGroup, Marker, Popup } from "react-leaflet"
 import { defaultIcon } from "../icons/defaultIcon"
 import { Button, Card, InputNumber, Space } from "antd"
@@ -8,6 +8,14 @@ import booleanPointInPolygon from "@turf/boolean-point-in-polygon"
 
 const DEFAULT_RADIUS = 3000
 
+/**
+ * Component to display the city name, the country name, and the city's population and filtered by radius
+ *
+ * @component
+ * @param {Array} feature
+ * @param {Function} setRadiusFilter
+ * @returns {React.ReactElement}
+ */
 const PopupStatistics = ({ feature, setRadiusFilter }) => {
   const [radius, setRadius] = useState(DEFAULT_RADIUS)
   const { name, adm0name, pop_max } = feature.properties
@@ -59,6 +67,16 @@ const PopupStatistics = ({ feature, setRadiusFilter }) => {
     </>
   )
 }
+
+/**
+ * Component to display the marker layer and tooltip for cities
+ * @component
+ * @param {Object} data
+ * @param {Function} setRadiusFilter
+ * @param {Function} getRadiusFilter
+ * @param {Function} getGeoFilter
+ * @returns {LayersControl.Overlay}
+ */
 export const MarkerLayer = ({
   data,
   setRadiusFilter,

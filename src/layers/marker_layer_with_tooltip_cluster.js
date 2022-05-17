@@ -3,6 +3,14 @@ import { LayersControl, Marker, Tooltip, useMap } from "react-leaflet"
 import MarkerClusterGroup from "react-leaflet-markercluster"
 import { defaultIcon } from "../icons/defaultIcon"
 
+
+/**
+ * Component to diplay a marker cluster layer for world cities
+ * 
+ * @component
+ * @param {Object} data
+ * @returns {LayersControl.Overlay}
+ */
 export const MarkerLayerWithTooltipCluster = ({ data }) => {
   const leafletMap = useMap()
   const layer = data.features.map(feature => {

@@ -17,6 +17,14 @@ proj4.defs(
   "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=0.99982 +x_0=600000 +y_0=750000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 )
 proj4.defs(WGS, "+proj=longlat +datum=WGS84 +no_defs")
+
+/**
+ * Component to diplay a marker layer and tooltip for Irish cities with a reprojection
+ *
+ * @component
+ * @param {Object} data
+ * @returns {LayersControl.Overlay}
+ */
 export const MarkerLayerWithTooltipReproject = ({ data }) => {
   const leafletMap = useMap()
   const layer = data.features.map(feature => {

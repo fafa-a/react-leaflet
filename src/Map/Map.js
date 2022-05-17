@@ -21,8 +21,8 @@ export const Map = () => {
 
   const [radiusFilter, setRadiusFilter] = useState(null)
   const getRadiusFilter = () => radiusFilter
-
   const [asyncCities, setAsyncCities] = useState({ features: [] })
+  
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(

@@ -1,5 +1,9 @@
 import { List } from "antd"
-
+/**
+ *
+ * @param {Function} getFilters
+ * @returns {React.ReactElement}
+ */
 export const ShowActiveFiltersControl = ({ getFilters }) => {
   const { geoFilter, radiusFilter } = getFilters()
   const getDisplayFilters = () => {
@@ -19,6 +23,7 @@ export const ShowActiveFiltersControl = ({ getFilters }) => {
     }
     return filtersToDisplay.length > 0 ? filtersToDisplay : ["No Filter Active"]
   }
+
   const RenderActiveFilters = () => {
     return (
       <List

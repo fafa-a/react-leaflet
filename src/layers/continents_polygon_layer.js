@@ -1,5 +1,14 @@
 import { GeoJSON, LayersControl } from "react-leaflet"
 
+/**
+ * Component to display a polygon layer for each continent
+ * 
+ * @component
+ * @param {Object} data
+ * @param {Function} setGeoFilter
+ * @param {Function} getGeoFilter
+ * @returns  {LayersControl.Overlay}
+ */
 export const ContinentsPolygonLayer = ({
   data,
   setGeoFilter,
