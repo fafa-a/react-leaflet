@@ -19,7 +19,6 @@ const DEFAULT_RADIUS = 3000
 const PopupStatistics = ({ feature, setRadiusFilter }) => {
   const [radius, setRadius] = useState(DEFAULT_RADIUS)
   const { name, adm0name, pop_max } = feature.properties
-  console.log(feature.properties)
 
   return (
     <>
@@ -70,6 +69,7 @@ const PopupStatistics = ({ feature, setRadiusFilter }) => {
 
 /**
  * Component to display the marker layer and tooltip for cities
+ * 
  * @component
  * @param {Object} data
  * @param {Function} setRadiusFilter

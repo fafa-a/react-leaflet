@@ -6,7 +6,7 @@ import { defaultIcon } from "../icons/defaultIcon"
 
 /**
  * Component to diplay a marker cluster layer for world cities
- * 
+ *
  * @component
  * @param {Object} data
  * @returns {LayersControl.Overlay}
