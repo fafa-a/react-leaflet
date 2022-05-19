@@ -14,26 +14,26 @@ import { defaultIcon } from "../icons/defaultIcon"
 export const MarkerLayerWithTooltipCluster = ({ data }) => {
   const leafletMap = useMap()
   const layer = data.features.map(feature => {
-    const { coordinates } = feature.geometry
-    const { name } = feature.properties
+    const { ID_SWOT, LONG_DD, LAT_DD } = feature.properties
+    const { DAM_NAME } = feature.properties
     return (
       <Marker
-        key={String(coordinates)}
-        position={[coordinates[1], coordinates[0]]}
+        key={ID_SWOT}
+        position={[LAT_DD, LONG_DD]}
         icon={defaultIcon}
         eventHandlers={{
           click: e => leafletMap.panTo(e.latlng),
         }}
       >
         <Tooltip>
-          <h3>{name}</h3>
+          <h3>{DAM_NAME}</h3>
         </Tooltip>
       </Marker>
     )
   })
 
   return (
-    <LayersControl.Overlay name="World cities clustered">
+    <LayersControl.Overlay name="Lakes clustered">
       <MarkerClusterGroup zoomToBoundsOnClick={false}>
         {layer}
       </MarkerClusterGroup>

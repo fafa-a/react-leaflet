@@ -18,14 +18,14 @@ const DEFAULT_RADIUS = 3000
  */
 const PopupStatistics = ({ feature, setRadiusFilter }) => {
   const [radius, setRadius] = useState(DEFAULT_RADIUS)
-  const { name, adm0name, pop_max } = feature.properties
+  const { DAM_NAME, COUNTRY } = feature.properties
 
   return (
     <>
       <Card type="inner" title="Name" style={{ marginTop: 16 }}>
-        <b>{`${name}, ${adm0name}`}</b>
+        <b>{`${DAM_NAME}, ${COUNTRY}`}</b>
       </Card>
-      <Card type="inner" title="Population" style={{ marginTop: 16 }}>
+      {/* <Card type="inner" title="Population" style={{ marginTop: 16 }}>
         <b>{`${pop_max}`}</b>
       </Card>
       <Card type="inner" title="Radius Filter" style={{ marginTop: 16 }}>
@@ -62,14 +62,14 @@ const PopupStatistics = ({ feature, setRadiusFilter }) => {
             Filter by km
           </Button>
         </Space>
-      </Card>
+      </Card> */}
     </>
   )
 }
 
 /**
  * Component to display the marker layer and tooltip for cities
- * 
+ *
  * @component
  * @param {Object} data
  * @param {Function} setRadiusFilter
@@ -119,11 +119,11 @@ export const MarkerLayer = ({
       return doFilter
     })
     .map(feature => {
-      const { coordinates } = feature.geometry
+      const { ID_SWOT, LONG_DD, LAT_DD } = feature.properties
       return (
         <Marker
-          key={String(coordinates)}
-          position={[coordinates[1], coordinates[0]]}
+          key={ID_SWOT}
+          position={[LAT_DD, LONG_DD]}
           icon={defaultIcon}
           doFitToBounds={true}
         >
@@ -137,7 +137,7 @@ export const MarkerLayer = ({
       )
     })
   return (
-    <LayersControl.Overlay name="World cities">
+    <LayersControl.Overlay name="Andalusia lakes">
       <LayerGroup>{layer}</LayerGroup>
     </LayersControl.Overlay>
   )
