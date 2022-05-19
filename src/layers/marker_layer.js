@@ -137,7 +137,7 @@ export const MarkerLayer = ({
       )
     })
   return (
-    <LayersControl.Overlay name="Andalusia lakes">
+    <LayersControl.Overlay name="Andalusia lakes markers">
       <LayerGroup>{layer}</LayerGroup>
     </LayersControl.Overlay>
   )

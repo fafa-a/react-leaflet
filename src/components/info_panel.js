@@ -51,7 +51,6 @@ export const InfoPanel = () => {
       randBetweenDate({ from: new Date("18/05/2019"), to: new Date() })
     )
   }
-  console.log(labels.length)
 
   const data = {
     labels,

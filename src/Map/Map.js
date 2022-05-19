@@ -15,8 +15,8 @@ import { cities } from "../data/cities"
 import { mountains } from "../data/highest-points"
 import { irishCities2157 } from "../data/irish_cities_2157"
 import { andalousie } from "../data/andalousie"
-import { Line } from "react-chartjs-2"
-
+import { GeojsonLayer } from "../layers/geojson_layer"
+import { PolygonLayer } from "../layers/polygon_layer"
 export const Map = () => {
   const [geoFilter, setGeoFilter] = useState(null)
   const getGeoFilter = () => geoFilter
@@ -58,6 +58,8 @@ export const Map = () => {
             getRadiusFilter={getRadiusFilter}
             getGeoFilter={getGeoFilter}
           />
+          {/* <GeojsonLayer data={andalousie} /> */}
+          <PolygonLayer data={andalousie} />
           <MarkerLayerWithTooltip data={mountains} />
           <MarkerLayerWithTooltipCluster data={andalousie} />
           <MarkerLayerWithTooltipReproject data={irishCities2157} />
@@ -76,7 +78,7 @@ export const Map = () => {
           getFilters={() => ({ geoFilter, radiusFilter })}
         />
       </MapContainer>
-      <InfoPanel />
+      {/* <InfoPanel /> */}
     </>
   )
 }

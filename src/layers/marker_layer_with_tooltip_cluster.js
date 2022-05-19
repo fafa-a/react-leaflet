@@ -14,8 +14,7 @@ import { defaultIcon } from "../icons/defaultIcon"
 export const MarkerLayerWithTooltipCluster = ({ data }) => {
   const leafletMap = useMap()
   const layer = data.features.map(feature => {
-    const { ID_SWOT, LONG_DD, LAT_DD } = feature.properties
-    const { DAM_NAME } = feature.properties
+    const { DAM_NAME, ID_SWOT, LONG_DD, LAT_DD } = feature.properties
     return (
       <Marker
         key={ID_SWOT}
