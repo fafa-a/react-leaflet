@@ -14,6 +14,7 @@ import { continents } from "../data/continents"
 import { cities } from "../data/cities"
 import { mountains } from "../data/highest-points"
 import { irishCities2157 } from "../data/irish_cities_2157"
+import { andalousie } from "../data/andalousie"
 import { Line } from "react-chartjs-2"
 
 export const Map = () => {
@@ -52,13 +53,13 @@ export const Map = () => {
             />
           </LayersControl.BaseLayer>
           <MarkerLayer
-            data={asyncCities}
+            data={andalousie}
             setRadiusFilter={setRadiusFilter}
             getRadiusFilter={getRadiusFilter}
             getGeoFilter={getGeoFilter}
           />
           <MarkerLayerWithTooltip data={mountains} />
-          <MarkerLayerWithTooltipCluster data={cities} />
+          <MarkerLayerWithTooltipCluster data={andalousie} />
           <MarkerLayerWithTooltipReproject data={irishCities2157} />
           <RadiusFilteR
             radiusFilter={radiusFilter}
