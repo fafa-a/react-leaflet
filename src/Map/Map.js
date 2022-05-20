@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { LayersControl, MapContainer, TileLayer } from "react-leaflet"
+import { LayersControl, MapContainer, Polygon, TileLayer } from "react-leaflet"
 
 import { MarkerLayer } from "../layers/marker_layer"
 import { MarkerLayerWithTooltip } from "../layers/marker_layer_with_tooltip"
@@ -11,12 +11,18 @@ import { MarkerLayerWithTooltipCluster } from "../layers/marker_layer_with_toolt
 import { MarkerLayerWithTooltipReproject } from "../layers/marker_layer_with_tooltip_reproject"
 import { InfoPanel } from "../components/info_panel"
 import { continents } from "../data/continents"
-import { cities } from "../data/cities"
 import { mountains } from "../data/highest-points"
 import { irishCities2157 } from "../data/irish_cities_2157"
-import { andalousie } from "../data/andalousie"
+
+import { Andalousie } from "../data/Andalousie"
+import { BurkinaFaso } from "../data/BurkinaFaso"
+import { India } from "../data/India"
+import { Occitanie } from "../data/Occitanie"
+import { Tunisia } from "../data/Tunisia"
+
 import { GeojsonLayer } from "../layers/geojson_layer"
 import { PolygonLayer } from "../layers/polygon_layer"
+
 export const Map = () => {
   const [geoFilter, setGeoFilter] = useState(null)
   const getGeoFilter = () => geoFilter
@@ -24,6 +30,8 @@ export const Map = () => {
   const [radiusFilter, setRadiusFilter] = useState(null)
   const getRadiusFilter = () => radiusFilter
   const [asyncCities, setAsyncCities] = useState({ features: [] })
+
+  const dataGeojson = [Andalousie, BurkinaFaso, India, Occitanie, Tunisia]
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +46,7 @@ export const Map = () => {
 
   return (
     <>
-      <MapContainer center={[0, 0]} zoom={1} scrollWheelZoom={true}>
+      <MapContainer center={[10, 0]} zoom={2} scrollWheelZoom={true}>
         <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="OSM Strets">
             <TileLayer
@@ -52,17 +60,20 @@ export const Map = () => {
               attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
             />
           </LayersControl.BaseLayer>
-          <MarkerLayer
-            data={andalousie}
-            setRadiusFilter={setRadiusFilter}
-            getRadiusFilter={getRadiusFilter}
-            getGeoFilter={getGeoFilter}
-          />
-          {/* <GeojsonLayer data={andalousie} /> */}
-          <PolygonLayer data={andalousie} />
-          <MarkerLayerWithTooltip data={mountains} />
-          <MarkerLayerWithTooltipCluster data={andalousie} />
-          <MarkerLayerWithTooltipReproject data={irishCities2157} />
+          {dataGeojson.map((data, index) => (
+            <div key={index.toString()}>
+              <MarkerLayer
+                data={data}
+                setRadiusFilter={setRadiusFilter}
+                getRadiusFilter={getRadiusFilter}
+                getGeoFilter={getGeoFilter}
+              />
+              <PolygonLayer data={data} />
+              <MarkerLayerWithTooltipCluster
+                data={data}
+              />
+            </div>
+          ))}
           <RadiusFilteR
             radiusFilter={radiusFilter}
             setRadiusFilter={setRadiusFilter}
@@ -78,7 +89,7 @@ export const Map = () => {
           getFilters={() => ({ geoFilter, radiusFilter })}
         />
       </MapContainer>
-      {/* <InfoPanel /> */}
+      <InfoPanel />
     </>
   )
 }

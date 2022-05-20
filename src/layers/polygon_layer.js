@@ -1,7 +1,10 @@
 import React from "react"
 import { LayerGroup, LayersControl, Polygon, Tooltip } from "react-leaflet"
 
-export const PolygonLayer = ({ data }) => {
+export const PolygonLayer = ({ data}) => {
+  const findCountryName = () => data.features[0].properties.COUNTRY
+  const country = findCountryName()
+
   const layer = data.features.map(feature => {
     const { ID_SWOT, DAM_NAME } = feature.properties
     const { coordinates } = feature.geometry
@@ -18,7 +21,7 @@ export const PolygonLayer = ({ data }) => {
     )
   })
   return (
-    <LayersControl.Overlay name="Andalusia lakes polygons">
+    <LayersControl.Overlay name={`${country} lakes polygons`}>
       <LayerGroup>{layer}</LayerGroup>
     </LayersControl.Overlay>
   )

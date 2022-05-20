@@ -68,7 +68,7 @@ export const InfoPanel = () => {
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
       {
-        label: "Taux remplissage %",
+        label: "Volume rate %",
         data: labels.map(() => randNumber({ min: 0, max: 100 })),
         borderColor: "rgb(127, 255, 0)",
         backgroundColor: "rgba(127, 255, 0, 0.5)",

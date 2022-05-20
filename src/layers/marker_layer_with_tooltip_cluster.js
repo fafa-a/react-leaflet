@@ -12,6 +12,9 @@ import { defaultIcon } from "../icons/defaultIcon"
  * @returns {LayersControl.Overlay}
  */
 export const MarkerLayerWithTooltipCluster = ({ data }) => {
+  const findCountryName = () => data.features[0].properties.COUNTRY
+  const country = findCountryName()
+
   const leafletMap = useMap()
   const layer = data.features.map(feature => {
     const { DAM_NAME, ID_SWOT, LONG_DD, LAT_DD } = feature.properties
@@ -32,10 +35,10 @@ export const MarkerLayerWithTooltipCluster = ({ data }) => {
   })
 
   return (
-    <LayersControl.Overlay name="Lakes clustered">
-      <MarkerClusterGroup zoomToBoundsOnClick={false}>
-        {layer}
-      </MarkerClusterGroup>
-    </LayersControl.Overlay>
+    // <LayersControl.Overlay checked={true} name={`${country} lakes clustered`}>
+    <MarkerClusterGroup checked={true} zoomToBoundsOnClick={false}>
+      {layer}
+    </MarkerClusterGroup>
+    // </LayersControl.Overlay>
   )
 }

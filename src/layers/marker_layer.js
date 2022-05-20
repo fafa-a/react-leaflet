@@ -85,13 +85,15 @@ export const MarkerLayer = ({
 }) => {
   const geoFilter = getGeoFilter()
   const radiusFilter = getRadiusFilter()
-
   let centerPoint
   if (radiusFilter) {
     const { coordinates } = radiusFilter.feature.geometry
     centerPoint = L.latLng(coordinates[1], coordinates[0])
   }
 
+  const findCountryName = () => data.features[0].properties.COUNTRY
+  const country = findCountryName()
+  
   const layer = data.features
     .filter(currentFeature => {
       let filterByRadius
@@ -137,7 +139,7 @@ export const MarkerLayer = ({
       )
     })
   return (
-    <LayersControl.Overlay name="Andalusia lakes markers">
+    <LayersControl.Overlay name={`${country} lakes markers`}>
       <LayerGroup>{layer}</LayerGroup>
     </LayersControl.Overlay>
   )
