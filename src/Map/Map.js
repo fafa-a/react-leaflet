@@ -8,11 +8,8 @@ import { ContinentsPolygonLayer } from "../layers/continents_polygon_layer"
 import { FitBoundToDataControl } from "../controls/fit_data_to_bounds"
 import { ShowActiveFiltersControl } from "../controls/show_active_filters"
 import { MarkerLayerWithTooltipCluster } from "../layers/marker_layer_with_tooltip_cluster"
-import { MarkerLayerWithTooltipReproject } from "../layers/marker_layer_with_tooltip_reproject"
 import { InfoPanel } from "../components/info_panel"
 import { continents } from "../data/continents"
-import { mountains } from "../data/highest-points"
-import { irishCities2157 } from "../data/irish_cities_2157"
 
 import { Andalousie } from "../data/Andalousie"
 import { BurkinaFaso } from "../data/BurkinaFaso"
@@ -20,7 +17,6 @@ import { India } from "../data/India"
 import { Occitanie } from "../data/Occitanie"
 import { Tunisia } from "../data/Tunisia"
 
-import { GeojsonLayer } from "../layers/geojson_layer"
 import { PolygonLayer } from "../layers/polygon_layer"
 
 export const Map = () => {
@@ -69,12 +65,10 @@ export const Map = () => {
                 getGeoFilter={getGeoFilter}
               />
               <PolygonLayer data={data} />
-              <MarkerLayerWithTooltipCluster
-                data={data}
-              />
+              <MarkerLayerWithTooltipCluster data={data} />
             </div>
           ))}
-          <RadiusFilteR
+          {/* <RadiusFilteR
             radiusFilter={radiusFilter}
             setRadiusFilter={setRadiusFilter}
           />
@@ -83,11 +77,12 @@ export const Map = () => {
             setGeoFilter={setGeoFilter}
             getGeoFilter={getGeoFilter}
           />
+        */}
+          {/* <FitBoundToDataControl />
+          <ShowActiveFiltersControl
+            getFilters={() => ({ geoFilter, radiusFilter })}
+          /> */}
         </LayersControl>
-        <FitBoundToDataControl />
-        <ShowActiveFiltersControl
-          getFilters={() => ({ geoFilter, radiusFilter })}
-        />
       </MapContainer>
       <InfoPanel />
     </>

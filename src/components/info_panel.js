@@ -12,7 +12,7 @@ import {
 import { Line } from "react-chartjs-2"
 import { randNumber, randBetweenDate } from "@ngneat/falso"
 import { RadioInput } from "./radio_input"
-
+import csv from "../series/Andalousie/2160004183_filling_rate_MO1.csv"
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -24,6 +24,9 @@ ChartJS.register(
 )
 
 export const InfoPanel = () => {
+  console.log(csv);
+
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
