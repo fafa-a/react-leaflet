@@ -1,14 +1,11 @@
-import React, { useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { LayerGroup, LayersControl, Polygon, Tooltip } from "react-leaflet"
 
 export const PolygonLayer = ({ data, getLakeId }) => {
-  const findCountryName = () => data.features[0].properties.COUNTRY
-  const country = findCountryName()
-
-  const ref = useRef()
-  const id = ref.current.options["data-id"]
+  const { COUNTRY } = data.features[0].properties
 
   const layer = data.features.map(feature => {
+    const ref = useRef()
     const { ID_SWOT, DAM_NAME } = feature.properties
     const { coordinates } = feature.geometry
     const reversedMultiPolygons = coordinates[0].map(polygon =>
@@ -22,7 +19,7 @@ export const PolygonLayer = ({ data, getLakeId }) => {
         positions={reversedMultiPolygons}
         data-id={ID_SWOT}
         eventHandlers={{
-          click: () => getLakeId(id),
+          click: () => getLakeId(ref.current.options["data-id"]),
         }}
       >
         <Tooltip>
@@ -32,7 +29,7 @@ export const PolygonLayer = ({ data, getLakeId }) => {
     )
   })
   return (
-    <LayersControl.Overlay name={`${country} lakes polygons`}>
+    <LayersControl.Overlay name={`${COUNTRY} lakes polygons`}>
       <LayerGroup>{layer}</LayerGroup>
     </LayersControl.Overlay>
   )

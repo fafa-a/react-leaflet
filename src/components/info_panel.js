@@ -1,4 +1,4 @@
-import React from "react"
+import { useEffect, useState } from "react"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,6 +13,8 @@ import { Line } from "react-chartjs-2"
 import { randNumber, randBetweenDate } from "@ngneat/falso"
 import { RadioInput } from "./radio_input"
 import csv from "../series/Andalousie/2160004183_filling_rate_MO1.csv"
+import { csvToJson } from "../utils/csvToJson"
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -24,8 +26,26 @@ ChartJS.register(
 )
 
 export const InfoPanel = () => {
-  console.log(csv);
+  const [dataJson, setDataJson] = useState({
+    date: [],
+    id: "",
+    name: "",
+  })
 
+  useEffect(() => {
+    const data = csvToJson(csv)
+    setDataJson(data)
+  }, [])
+  console.log(dataJson)
+  // const val = dataJson.date.map(val =>
+  //   Object.entries(val)
+  //     .filter(val => val[1] !== "nan")
+  //     .map(val => val)
+  // )
+
+  // console.log(val)
+
+  // objDate.forEach(date => console.log(date))
 
   const options = {
     responsive: true,
