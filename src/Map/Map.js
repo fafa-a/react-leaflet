@@ -40,6 +40,10 @@ export const Map = () => {
     fetchData().catch(console.error)
   }, [])
 
+  const getLakeId = id => {
+    console.log({ id })
+  }
+
   return (
     <>
       <MapContainer center={[10, 0]} zoom={2} scrollWheelZoom={true}>
@@ -64,7 +68,7 @@ export const Map = () => {
                 getRadiusFilter={getRadiusFilter}
                 getGeoFilter={getGeoFilter}
               />
-              <PolygonLayer data={data} />
+              <PolygonLayer data={data} getLakeId={getLakeId} />
               <MarkerLayerWithTooltipCluster data={data} />
             </div>
           ))}
