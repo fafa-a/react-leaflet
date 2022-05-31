@@ -30,19 +30,22 @@ export const InfoPanel = ({ dataCharts }) => {
   //const [fillingRateDates, setFillingRateDates] = useState([])
   const [dataFiltered, setDataFiltered] = useState([])
   const { observation, id, name } = dataCharts
+  console.log(observation)
 
   useEffect(() => {
-    if (observation?.length) {
-      console.log("hey", observation.length)
-      const fillingRateData = observation.filter(
-        val => val.value !== "nan" && val.date !== ""
-      )
-      setDataFiltered(fillingRateData)
-      // setFillingRateValues(fillingRateData.map(el => el.value))
-      // setFillingRateDates(fillingRateData.map(el => new Date(el.date)))
-      setLoading(false)
-    }
-  }, [dataCharts])
+      console.log("ezrzrezrzer")
+      if (observation?.length) {
+        console.log("hey", observation)
+        const fillingRateData = observation.filter(
+          val => val.value !== "nan" && val.date !== ""
+        )
+        setDataFiltered(fillingRateData)
+        // setFillingRateValues(fillingRateData.map(el => el.value))
+        // setFillingRateDates(fillingRateData.map(el => new Date(el.date)))
+        setLoading(false)
+      }
+
+  }, [])
 
   const options = {
     responsive: true,

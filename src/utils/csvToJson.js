@@ -20,7 +20,7 @@ import { usePapaParse } from "react-papaparse"
             }
           },
           complete: results => {
-            console.log("Parsing complete", obj)
+            console.log("Parsing complete")
           },
           error: (error, file) => {
             console.log("Error while parsing:", error, file)
