@@ -1,7 +1,5 @@
 import { usePapaParse } from "react-papaparse"
 
-const { readString } = usePapaParse()
-
 let obj = {}
 obj.observation = []
 
@@ -19,29 +17,19 @@ const papaConfig = {
     }
   },
   complete: results => {
-    obj = {}
+    console.log("Parsing complete")
   },
   error: (error, file) => {
     console.log("Error while parsing:", error, file)
   },
 }
 
-//const csvToJson = csvFile => {
-//  try {
-//    return readString(csvFile, papaConfig)
-//  } catch (error) {
-//    console.error(error)
-//  }
-//}
-
-const csvToJson = csvFile => {
-  readString(csvFile, papaConfig)
-  return obj
+const CSVToJSON = csvFile => {
+  const { readString } = usePapaParse()
+  if (csvFile !== undefined) {
+    readString(csvFile, papaConfig)
+    return obj
+  }
 }
 
-//const csvToJson = csvFile => {
-//  return new Promise(resolve => {
-//    resolve(readString(csvFile, papaConfig))
-//  })
-//}
-export { csvToJson }
+export { CSVToJSON }

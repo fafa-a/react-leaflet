@@ -3,13 +3,9 @@ import { LayersControl, MapContainer, Polygon, TileLayer } from "react-leaflet"
 
 import { MarkerLayer } from "../layers/marker_layer"
 import { MarkerLayerWithTooltip } from "../layers/marker_layer_with_tooltip"
-import { RadiusFilteR } from "../layers/radius_filter"
-import { ContinentsPolygonLayer } from "../layers/continents_polygon_layer"
-import { FitBoundToDataControl } from "../controls/fit_data_to_bounds"
-import { ShowActiveFiltersControl } from "../controls/show_active_filters"
 import { MarkerLayerWithTooltipCluster } from "../layers/marker_layer_with_tooltip_cluster"
 import { InfoPanel } from "../components/info_panel"
-import { continents } from "../data/continents"
+import { PolygonLayer } from "../layers/polygon_layer"
 
 import { Andalousie } from "../data/Andalousie"
 import { BurkinaFaso } from "../data/BurkinaFaso"
@@ -17,7 +13,8 @@ import { India } from "../data/India"
 import { Occitanie } from "../data/Occitanie"
 import { Tunisia } from "../data/Tunisia"
 
-import { PolygonLayer } from "../layers/polygon_layer"
+import csv from "../series/Andalousie/2160004183_filling_rate_MO1.csv"
+import { CSVToJSON } from "../utils/csvToJson"
 
 export const Map = () => {
   const [geoFilter, setGeoFilter] = useState(null)
@@ -28,6 +25,7 @@ export const Map = () => {
   const [asyncCities, setAsyncCities] = useState({ features: [] })
 
   const dataGeojson = [Andalousie, BurkinaFaso, India, Occitanie, Tunisia]
+  const [dataCharts, setDataCharts] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,13 +38,18 @@ export const Map = () => {
     fetchData().catch(console.error)
   }, [])
 
-  const getLakeId = id => {
-    console.log({ id })
+  const getLakeData = id => {
+    console.log("lake data", id)
+    const dataJSON = CSVToJSON(csv)
+    setDataCharts(dataJSON)
   }
+  useEffect(() => {
+    getLakeData()
+  }, [dataCharts])
 
   return (
     <>
-      <MapContainer center={[10, 0]} zoom={2} scrollWheelZoom={true}>
+      <MapContainer center={[36.91, -3.54]} zoom={11} scrollWheelZoom={true}>
         <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="OSM Strets">
             <TileLayer
@@ -68,7 +71,7 @@ export const Map = () => {
                 getRadiusFilter={getRadiusFilter}
                 getGeoFilter={getGeoFilter}
               />
-              <PolygonLayer data={data} getLakeId={getLakeId} />
+              <PolygonLayer data={data} getLakeData={getLakeData} />
               <MarkerLayerWithTooltipCluster data={data} />
             </div>
           ))}
@@ -88,7 +91,7 @@ export const Map = () => {
           /> */}
         </LayersControl>
       </MapContainer>
-      <InfoPanel />
+      <InfoPanel dataCharts={dataCharts} />
     </>
   )
 }
