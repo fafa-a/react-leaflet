@@ -26,24 +26,23 @@ ChartJS.register(
 
 export const InfoPanel = ({ dataCharts }) => {
   const [loading, setLoading] = useState(true)
-  const [fillingRateValues, setFillingRateValues] = useState([])
-  const [fillingRateDates, setFillingRateDates] = useState([])
+  // const [fillingRateValues, setFillingRateValues] = useState([])
+  //const [fillingRateDates, setFillingRateDates] = useState([])
+  const [dataFiltered, setDataFiltered] = useState([])
+  const { observation, id, name } = dataCharts
 
-  // useEffect(() => {
-  //   const data = csvToJson(dataCSV)
-  //   setDataJson(data)
-  // }, [])
-
-  // const fillingRateData = dataJson.observation.filter(
-  //   val => val.value !== "nan" && val.date !== ""
-  // )
-  // const getData = () => {
-  //   setFillingRateValues(fillingRateData.map(el => el.value))
-  //   setFillingRateDates(fillingRateData.map(el => new Date(el.date)))
-  //   setLoading(false)
-  // }
-
-  // getData()
+  useEffect(() => {
+    if (observation?.length) {
+      console.log("hey", observation.length)
+      const fillingRateData = observation.filter(
+        val => val.value !== "nan" && val.date !== ""
+      )
+      setDataFiltered(fillingRateData)
+      // setFillingRateValues(fillingRateData.map(el => el.value))
+      // setFillingRateDates(fillingRateData.map(el => new Date(el.date)))
+      setLoading(false)
+    }
+  }, [dataCharts])
 
   const options = {
     responsive: true,
@@ -59,10 +58,17 @@ export const InfoPanel = ({ dataCharts }) => {
       },
       title: {
         display: true,
-        text: "Data Visualization",
+        text: `${name} Data Visualization`,
         font: {
           size: 16,
         },
+      },
+    },
+    title: {
+      display: true,
+      text: `${name} Data Visualization`,
+      font: {
+        size: 16,
       },
     },
   }
@@ -78,11 +84,11 @@ export const InfoPanel = ({ dataCharts }) => {
   }
 
   const data = {
-    fillingRateDates,
+    labels: dataFiltered.map(el => new Date(el.date)),
     datasets: [
       {
         label: "Filling rate",
-        data: fillingRateValues,
+        data: dataFiltered.map(el => el.value),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },

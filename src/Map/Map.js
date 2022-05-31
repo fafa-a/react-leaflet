@@ -45,7 +45,7 @@ export const Map = () => {
   }
   useEffect(() => {
     getLakeData()
-  }, [dataCharts])
+  }, [])
 
   return (
     <>
