@@ -28,20 +28,35 @@ ChartJS.register(
 
 export const InfoPanel = () => {
   const { dataChart } = useContext(DataContext)
-  const { observation, id, name } = dataChart
+  const { observation, id, name } = dataChart.fillingRate
   console.log("data info panel", { name }, { dataChart })
   const [loading, setLoading] = useState(true)
-  const [dataFiltered, setDataFiltered] = useState([])
+  const [dataFiltered, setDataFiltered] = useState({
+    fillingRate: [],
+    surface: [],
+    volume: [],
+  })
 
   useEffect(() => {
     if (typeof observation === "object") {
       console.log("hey", observation)
 
-      const fillingRateData = dataChart.observation.filter(
+      const fillingRateData = dataChart.fillingRate.observation.filter(
         val => val.value !== "nan" && val.date !== "" && val.value !== "0"
       )
+      const surfaceData = dataChart.surface.observation.filter(
+        val => val.value !== "nan" && val.date !== "" && val.value !== "0"
+      )
+      const volumeData = dataChart.volume.observation.filter(
+        val => val.value !== "nan" && val.date !== "" && val.value !== "0"
+      )
+      setDataFiltered({
+        ...dataFiltered,
+        fillingRate: fillingRateData,
+        surface: surfaceData,
+        volume: volumeData,
+      })
 
-      setDataFiltered(fillingRateData)
       console.log("datafilterd", dataFiltered)
       setLoading(false)
     }
@@ -70,7 +85,7 @@ export const InfoPanel = () => {
   }
 
   const data = {
-    labels: dataFiltered.map(el => {
+    labels: dataFiltered.fillingRate.map(el => {
       return new Date(el.date)
       const date = new Date(el.date)
       const options = {
@@ -82,9 +97,21 @@ export const InfoPanel = () => {
     datasets: [
       {
         label: "Filling rate",
-        data: dataFiltered.map(el => el.value),
+        data: dataFiltered.fillingRate.map(el => el.value),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "Surface",
+        data: dataFiltered.surface.map(el => el.value),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+      {
+        label: "Volume",
+        data: dataFiltered.volume.map(el => el.value),
+        borderColor: "rgb(127, 255, 0)",
+        backgroundColor: "rgba(127, 255, 0, 0.5)",
       },
     ],
   }
