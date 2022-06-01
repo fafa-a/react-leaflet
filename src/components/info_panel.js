@@ -29,7 +29,6 @@ ChartJS.register(
 export const InfoPanel = () => {
   const { dataChart } = useContext(DataContext)
   const { observation, id, name } = dataChart.fillingRate
-  console.log("data info panel", { name }, { dataChart })
   const [loading, setLoading] = useState(true)
   const [dataFiltered, setDataFiltered] = useState({
     fillingRate: [],
@@ -39,8 +38,6 @@ export const InfoPanel = () => {
 
   useEffect(() => {
     if (typeof observation === "object") {
-      console.log("hey", observation)
-
       const fillingRateData = dataChart.fillingRate.observation.filter(
         val => val.value !== "nan" && val.date !== "" && val.value !== "0"
       )
@@ -57,7 +54,8 @@ export const InfoPanel = () => {
         volume: volumeData,
       })
 
-      console.log("datafilterd", dataFiltered)
+      dataFiltered.surface.forEach(val => console.log(val))
+
       setLoading(false)
     }
   }, [observation])
@@ -86,30 +84,35 @@ export const InfoPanel = () => {
 
   const data = {
     labels: dataFiltered.fillingRate.map(el => {
-      //return new Date(el.date)
+      // return new Date(el.date)
       const date = new Date(el.date)
       const options = {
-        month: "long",
-        year: "numeric",
+        day: "numeric",
+        month: "numeric",
+        year: "2-digit",
       }
       return new Intl.DateTimeFormat("en-US", options).format(date)
     }),
     datasets: [
       {
         label: "Filling rate %",
-        data: dataFiltered.fillingRate.map(el => el.value),
+        data: dataFiltered.fillingRate.map(el => (1 * el.value).toFixed(2)),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
       {
         label: "Surface hm²",
-        data: dataFiltered.surface.map(el => el.value / 10_000),
+        data: dataFiltered.surface.map(
+          el => (1 * el.value).toFixed(2) / 10_000
+        ),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
       {
         label: "Volume hm³",
-        data: dataFiltered.volume.map(el => el.value / 1_000_000),
+        data: dataFiltered.volume.map(
+          el => (1 * el.value).toFixed(2) / 1_000_000
+        ),
         borderColor: "rgb(127, 255, 0)",
         backgroundColor: "rgba(127, 255, 0, 0.5)",
       },
