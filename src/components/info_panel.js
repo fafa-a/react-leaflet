@@ -5,6 +5,7 @@ import {
   LinearScale,
   PointElement,
   LineElement,
+  TimeScale,
   Title,
   Tooltip,
   Legend,
@@ -19,6 +20,7 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  TimeScale,
   Title,
   Tooltip,
   Legend
@@ -48,23 +50,6 @@ export const InfoPanel = () => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: "top",
-        labels: {
-          font: {
-            size: 14,
-          },
-        },
-      },
-      title: {
-        display: true,
-        text: `${name} Data Visualization`,
-        font: {
-          size: 16,
-        },
-      },
-    },
     title: {
       display: true,
       text: `${name} Data Visualization`,
@@ -85,7 +70,15 @@ export const InfoPanel = () => {
   }
 
   const data = {
-    labels: dataFiltered.map(el => el.date),
+    labels: dataFiltered.map(el => {
+      //return new Date(el.date)
+      const date = new Date(el.date)
+      const options = {
+        month: "long",
+        year: "numeric",
+      }
+      return new Intl.DateTimeFormat("en-US", options).format(date)
+    }),
     datasets: [
       {
         label: "Filling rate",
