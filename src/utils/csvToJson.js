@@ -21,7 +21,7 @@ const CSVToJSON = csvFile => {
           obj.observation.push({ date, value })
         }
       },
-      complete: () => {
+      complete: file => {
         console.log("Parsing complete")
       },
       error: (error, file) => {

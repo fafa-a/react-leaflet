@@ -6,7 +6,7 @@ export const DataContext = createContext()
 export const DataContextProvider = ({ children }) => {
   const [dataChart, setDataChart] = useState([])
 
-  const changeData = async csv => {
+  const changeData = async (...csv) => {
     const data = await CSVToJSONPromise(csv)
     setDataChart(data)
   }

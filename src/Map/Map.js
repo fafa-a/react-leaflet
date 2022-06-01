@@ -13,8 +13,9 @@ import { India } from "../data/India"
 import { Occitanie } from "../data/Occitanie"
 import { Tunisia } from "../data/Tunisia"
 
-import csv from "../series/Andalousie/2160004183_filling_rate_MO1.csv"
-import { CSVToJSON } from "../utils/csvToJson"
+import csvFillingRate from "../series/Andalousie/2160004183_filling_rate_MO1.csv"
+import csvSurface from "../series/Andalousie/2160004183_surface_MO1.csv"
+import csvVolume from "../series/Andalousie/2160004183_volume_MO1.csv"
 import { DataContext } from "../context/dataContext"
 
 export const Map = () => {
@@ -38,7 +39,7 @@ export const Map = () => {
   }, [])
 
   const getLakeData = id => {
-    changeData(csv)
+    changeData(csvFillingRate, csvSurface, csvVolume)
   }
   useEffect(() => {
     getLakeData()
