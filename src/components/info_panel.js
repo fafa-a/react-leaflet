@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,7 +12,7 @@ import {
 import { Line } from "react-chartjs-2"
 import { randNumber, randBetweenDate } from "@ngneat/falso"
 import { RadioInput } from "./radio_input"
-import { csvToJson } from "../utils/csvToJson"
+import { DataContext } from "../context/dataContext"
 
 ChartJS.register(
   CategoryScale,
@@ -24,28 +24,26 @@ ChartJS.register(
   Legend
 )
 
-export const InfoPanel = ({ dataCharts }) => {
+export const InfoPanel = () => {
+  const { dataChart } = useContext(DataContext)
+  const { observation, id, name } = dataChart
+  console.log("data info panel", { name }, { dataChart })
   const [loading, setLoading] = useState(true)
-  // const [fillingRateValues, setFillingRateValues] = useState([])
-  //const [fillingRateDates, setFillingRateDates] = useState([])
   const [dataFiltered, setDataFiltered] = useState([])
-  const { observation, id, name } = dataCharts
-  console.log(observation)
 
   useEffect(() => {
-      console.log("ezrzrezrzer")
-      if (observation?.length) {
-        console.log("hey", observation)
-        const fillingRateData = observation.filter(
-          val => val.value !== "nan" && val.date !== ""
-        )
-        setDataFiltered(fillingRateData)
-        // setFillingRateValues(fillingRateData.map(el => el.value))
-        // setFillingRateDates(fillingRateData.map(el => new Date(el.date)))
-        setLoading(false)
-      }
+    if (typeof observation === "object") {
+      console.log("hey", observation)
 
-  }, [])
+      const fillingRateData = dataChart.observation.filter(
+        val => val.value !== "nan" && val.date !== ""
+      )
+
+      setDataFiltered(fillingRateData)
+      console.log("datafilterd", dataFiltered)
+      setLoading(false)
+    }
+  }, [observation])
 
   const options = {
     responsive: true,
@@ -87,7 +85,7 @@ export const InfoPanel = ({ dataCharts }) => {
   }
 
   const data = {
-    labels: dataFiltered.map(el => new Date(el.date)),
+    labels: dataFiltered.map(el => el.date),
     datasets: [
       {
         label: "Filling rate",

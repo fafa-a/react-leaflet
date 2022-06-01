@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { LayersControl, MapContainer, Polygon, TileLayer } from "react-leaflet"
 
 import { MarkerLayer } from "../layers/marker_layer"
@@ -15,18 +15,17 @@ import { Tunisia } from "../data/Tunisia"
 
 import csv from "../series/Andalousie/2160004183_filling_rate_MO1.csv"
 import { CSVToJSON } from "../utils/csvToJson"
+import { DataContext } from "../context/dataContext"
 
 export const Map = () => {
   const [geoFilter, setGeoFilter] = useState(null)
   const getGeoFilter = () => geoFilter
-
   const [radiusFilter, setRadiusFilter] = useState(null)
   const getRadiusFilter = () => radiusFilter
   const [asyncCities, setAsyncCities] = useState({ features: [] })
-
   const dataGeojson = [Andalousie, BurkinaFaso, India, Occitanie, Tunisia]
-  const [dataCharts, setDataCharts] = useState([])
 
+  const { dataChart, changeData } = useContext(DataContext)
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -39,9 +38,7 @@ export const Map = () => {
   }, [])
 
   const getLakeData = id => {
-    console.log("lake data", id)
-    const dataJSON = CSVToJSON(csv)
-    setDataCharts(dataJSON)
+    changeData(csv)
   }
   useEffect(() => {
     getLakeData()
@@ -91,7 +88,7 @@ export const Map = () => {
           /> */}
         </LayersControl>
       </MapContainer>
-      <InfoPanel dataCharts={dataCharts} />
+      <InfoPanel />
     </>
   )
 }
