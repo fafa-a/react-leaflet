@@ -38,7 +38,7 @@ export const InfoPanel = () => {
       console.log("hey", observation)
 
       const fillingRateData = dataChart.observation.filter(
-        val => val.value !== "nan" && val.date !== ""
+        val => val.value !== "nan" && val.date !== "" && val.value !== "0"
       )
 
       setDataFiltered(fillingRateData)
@@ -71,7 +71,7 @@ export const InfoPanel = () => {
 
   const data = {
     labels: dataFiltered.map(el => {
-      //return new Date(el.date)
+      return new Date(el.date)
       const date = new Date(el.date)
       const options = {
         month: "long",

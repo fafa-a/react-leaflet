@@ -7,7 +7,7 @@ export const DataContextProvider = ({ children }) => {
   const [dataChart, setDataChart] = useState([])
 
   const changeData = async (...csv) => {
-    const data = await CSVToJSONPromise(csv)
+    const data = await CSVToJSONPromise(csv[1])
     setDataChart(data)
   }
 
