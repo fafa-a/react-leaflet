@@ -28,37 +28,50 @@ ChartJS.register(
 
 export const InfoPanel = () => {
   const { dataChart } = useContext(DataContext)
-  const { observation, id, name } = dataChart.fillingRate
+  console.log(dataChart)
+  // const { observation, id, name } = dataChart.fillingRate
   const [loading, setLoading] = useState(true)
   const [dataFiltered, setDataFiltered] = useState({
     fillingRate: [],
     surface: [],
     volume: [],
   })
+  const [dateLabels, setDateLabels] = useState([])
 
   useEffect(() => {
-    if (typeof observation === "object") {
-      const fillingRateData = dataChart.fillingRate.observation.filter(
-        val => val.value !== "nan" && val.date !== "" && val.value !== "0"
-      )
-      const surfaceData = dataChart.surface.observation.filter(
-        val => val.value !== "nan" && val.date !== "" && val.value !== "0"
-      )
-      const volumeData = dataChart.volume.observation.filter(
-        val => val.value !== "nan" && val.date !== "" && val.value !== "0"
-      )
-      setDataFiltered({
-        ...dataFiltered,
-        fillingRate: fillingRateData,
-        surface: surfaceData,
-        volume: volumeData,
-      })
-
-      dataFiltered.surface.forEach(val => console.log(val))
-
-      setLoading(false)
+    const fillingRateData = dataChart.fillingRate.filter(
+      el => !isNaN(el.value) && el.date !== "" && el.value !== 0
+    )
+    const surfaceData = dataChart.surface.filter(
+      el => !isNaN(el.value) && "nan" && el.date !== "" && el.value !== 0
+    )
+    const volumeData = dataChart.volume.filter(
+      el => !isNaN(el.value) && el.date !== "" && el.value !== 0
+    )
+    setDataFiltered({
+      ...dataFiltered,
+      fillingRate: fillingRateData,
+      surface: surfaceData,
+      volume: volumeData,
     }
-  }, [observation])
+    )
+    //const date = new Date(el.date)
+    //   const options = {
+    //     day: "numeric",
+    //     month: "numeric",
+    //     year: "2-digit",
+    //   }
+    //   return new Intl.DateTimeFormat("en-US", options).format(date)
+    const dateFillingRate = dataFiltered.fillingRate.map(el => el.date)
+    const dateSurface = dataFiltered.surface.map(el => el.date)
+    const dateVolume = dataFiltered.volume.map(el => el.date)
+
+    const dateTMP = [...dateFillingRate, ...dateSurface, ...dateVolume]
+    const uniqueDate = new Set(dateTMP)
+
+    setDateLabels(Array.from(uniqueDate))
+    setLoading(false)
+  }, [dataChart])
 
   const options = {
     responsive: true,
@@ -83,16 +96,18 @@ export const InfoPanel = () => {
   }
 
   const data = {
-    labels: dataFiltered.fillingRate.map(el => {
-      // return new Date(el.date)
-      const date = new Date(el.date)
-      const options = {
-        day: "numeric",
-        month: "numeric",
-        year: "2-digit",
-      }
-      return new Intl.DateTimeFormat("en-US", options).format(date)
-    }),
+    labels: dateLabels,
+    // .map((el, idx) => {
+    //   console.log(el.value)
+    //   return new Date(el[idx])
+    //   const date = new Date(el.date)
+    //   const options = {
+    //     day: "numeric",
+    //     month: "numeric",
+    //     year: "2-digit",
+    //   }
+    //   return new Intl.DateTimeFormat("en-US", options).format(date)
+    // })
     datasets: [
       {
         label: "Filling rate %",
@@ -134,7 +149,7 @@ export const InfoPanel = () => {
       ) : (
         <>
           <Line options={options} data={data} />
-          <RadioInput />
+          {/* <RadioInput /> */}
         </>
       )}
     </div>

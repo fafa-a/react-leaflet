@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState, useRef } from "react"
 import { LayersControl, MapContainer, Polygon, TileLayer } from "react-leaflet"
 
 import { MarkerLayer } from "../layers/marker_layer"
@@ -6,16 +6,22 @@ import { MarkerLayerWithTooltip } from "../layers/marker_layer_with_tooltip"
 import { MarkerLayerWithTooltipCluster } from "../layers/marker_layer_with_tooltip_cluster"
 import { InfoPanel } from "../components/info_panel"
 import { PolygonLayer } from "../layers/polygon_layer"
-
+import { FitBoundToDataControl } from "../controls/fit_data_to_bounds"
 import { Andalousie } from "../data/Andalousie"
 import { BurkinaFaso } from "../data/BurkinaFaso"
 import { India } from "../data/India"
 import { Occitanie } from "../data/Occitanie"
 import { Tunisia } from "../data/Tunisia"
+import { useMap } from "react-leaflet"
 
-import csvFillingRate from "../series/Andalousie/2160004183_filling_rate_MO1.csv"
-import csvSurface from "../series/Andalousie/2160004183_surface_MO1.csv"
-import csvVolume from "../series/Andalousie/2160004183_volume_MO1.csv"
+//import csvFillingRate from "../series/Andalousie/2160004183_filling_rate_MO1.csv"
+//import csvSurface from "../series/Andalousie/2160004183_surface_MO1.csv"
+//import csvVolume from "../series/Andalousie/2160004183_volume_MO1.csv"
+
+import fillingRate from "../series/Andalousie/filling_rate_M01.json"
+import surface from "../series/Andalousie/surface_M01.json"
+import volume from "../series/Andalousie/volume_M01.json"
+
 import { DataContext } from "../context/dataContext"
 
 export const Map = () => {
@@ -25,8 +31,9 @@ export const Map = () => {
   const getRadiusFilter = () => radiusFilter
   const [asyncCities, setAsyncCities] = useState({ features: [] })
   const dataGeojson = [Andalousie, BurkinaFaso, India, Occitanie, Tunisia]
-
+  const [polygonClicked, setPolygonCliked] = useState(Boolean)
   const { dataChart, changeData } = useContext(DataContext)
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -38,8 +45,11 @@ export const Map = () => {
     fetchData().catch(console.error)
   }, [])
 
+  const isPolygonClicked = bool => {
+    setPolygonCliked(bool)
+  }
   const getLakeData = id => {
-    changeData(csvFillingRate, csvSurface, csvVolume)
+    changeData(fillingRate, surface, volume)
   }
   useEffect(() => {
     getLakeData()
@@ -47,6 +57,7 @@ export const Map = () => {
 
   return (
     <>
+      {/* <div style={{ height: v`${polygonClicked ? "55vh" : "100vh"}` }}> */}
       <MapContainer center={[36.91, -3.54]} zoom={11} scrollWheelZoom={true}>
         <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="OSM Strets">
@@ -69,7 +80,12 @@ export const Map = () => {
                 getRadiusFilter={getRadiusFilter}
                 getGeoFilter={getGeoFilter}
               />
-              <PolygonLayer data={data} getLakeData={getLakeData} />
+              <PolygonLayer
+                data={data}
+                getLakeData={getLakeData}
+                isPolygonClicked={isPolygonClicked}
+              />
+
               <MarkerLayerWithTooltipCluster data={data} />
             </div>
           ))}
@@ -83,13 +99,15 @@ export const Map = () => {
             getGeoFilter={getGeoFilter}
           />
         */}
-          {/* <FitBoundToDataControl />
-          <ShowActiveFiltersControl
-            getFilters={() => ({ geoFilter, radiusFilter })}
-          /> */}
+          {/* <FitBoundToDataControl /> */}
+          {/* <ShowActiveFiltersControl
+              getFilters={() => ({ geoFilter, radiusFilter })}
+            /> */}
         </LayersControl>
       </MapContainer>
       <InfoPanel />
+      {/* </div> */}
+      {/* {polygonClicked && <InfoPanel />} */}
     </>
   )
 }

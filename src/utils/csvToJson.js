@@ -13,8 +13,10 @@ const CSVToJSON = csvFile => {
       step: row => {
         if (row.data[0] === "id") {
           obj.id = row.data[1]
-        } else if (row.data[0] === "name") {
+        } else if (row.data[0] === "name" || row.data[0] === "Nom") {
           obj.name = row.data[1]
+        } else if (row.data[0] === "surface") {
+          obj.surface = row.data[1]
         } else {
           const date = row.data[0]
           const value = row.data[1]
@@ -43,8 +45,10 @@ const CSVToJSONPromise = csvFile => {
         step: row => {
           if (row.data[0] === "id") {
             obj.id = row.data[1]
-          } else if (row.data[0] === "name") {
+          } else if (row.data[0] === "name" || row.data[0] === "Nom") {
             obj.name = row.data[1]
+          } else if (row.data[0] === "surface") {
+            obj.surface = row.data[1]
           } else {
             const date = row.data[0]
             const value = row.data[1]
@@ -65,4 +69,4 @@ const CSVToJSONPromise = csvFile => {
   })
 }
 
-export { CSVToJSONPromise, CSVToJSON }
+export { CSVToJSONPromise }

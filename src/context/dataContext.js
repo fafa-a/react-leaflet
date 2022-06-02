@@ -1,5 +1,5 @@
 import { useState, createContext } from "react"
-import { CSVToJSON, CSVToJSONPromise } from "../utils/csvToJson"
+import { CSVToJSONPromise } from "../utils/csvToJson"
 
 export const DataContext = createContext()
 
@@ -10,28 +10,18 @@ export const DataContextProvider = ({ children }) => {
     volume: [],
   })
 
-  const changeData = async (...csv) => {
-    setDataChart({
-      fillingRate: await CSVToJSONPromise(csv[0]),
-      surface: await CSVToJSONPromise(csv[1]),
-      volume: await CSVToJSONPromise(csv[2]),
-    })
-    // csv.forEach(async (csvFile,index) => {
-    //   const data = await CSVToJSONPromise(csvFile)
-    //   switch (index) {
-    //     case 0:
-    //       setDataChart({ ...dataChart, filingRate: data })
-    //       break
-    //     case 1:
-    //       setDataChart({ ...dataChart, surface: data })
-    //       break
-    //     case 2:
-    //       setDataChart({ ...dataChart, volume: data })
-    //   }
-    // })
+  const changeData = async (...json) => {
+    // setDataChart({
+    //     fillingRate: await CSVToJSONPromise(csv[0]),
+    //     surface: await CSVToJSONPromise(csv[1]),
+    //     volume: await CSVToJSONPromise(csv[2]),
+    //   })
 
-    // const data = await CSVToJSONPromise(csv[1])
-    // setDataChart(data)
+    setDataChart({
+      fillingRate: json[0],
+      surface: json[1],
+     volume: json[2],
+    })
   }
 
   return (
