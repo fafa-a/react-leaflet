@@ -12,8 +12,8 @@ import {
 } from "chart.js"
 import { Line } from "react-chartjs-2"
 import { randNumber, randBetweenDate } from "@ngneat/falso"
-import { RadioInput } from "./radio_input"
-import { DataContext } from "../context/dataContext"
+import { RadioInput } from "./RadioInput"
+import { DataContext } from "../context/DataContext"
 
 ChartJS.register(
   CategoryScale,
@@ -53,8 +53,7 @@ export const InfoPanel = () => {
       fillingRate: fillingRateData,
       surface: surfaceData,
       volume: volumeData,
-    }
-    )
+    })
     //const date = new Date(el.date)
     //   const options = {
     //     day: "numeric",

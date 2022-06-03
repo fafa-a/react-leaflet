@@ -1,16 +1,18 @@
 import React from "react"
 import { Map } from "./Map/Map"
 import "leaflet/dist/leaflet.css"
-import "./app.css"
+import "./App.css"
 import "antd/dist/antd.variable.min.css"
 import "leaflet.markercluster/dist/MarkerCluster.css"
 import "leaflet.markercluster/dist/MarkerCluster.Default.css"
-import { DataContextProvider } from "./context/dataContext"
+import { DataContextProvider } from "./context/DataContext"
 
-export const App = () => {
+const App = () => {
   return (
     <DataContextProvider>
       <Map />
     </DataContextProvider>
   )
 }
+
+export default App
