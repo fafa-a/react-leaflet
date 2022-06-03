@@ -11,8 +11,7 @@ import {
   Legend,
 } from "chart.js"
 import { Line } from "react-chartjs-2"
-import { randNumber, randBetweenDate } from "@ngneat/falso"
-import { RadioInput } from "./RadioInput"
+import zoomPlugin from "chartjs-plugin-zoom"
 import { DataContext } from "../context/DataContext"
 
 ChartJS.register(
@@ -23,12 +22,13 @@ ChartJS.register(
   TimeScale,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  zoomPlugin
 )
 
-export const InfoPanel = () => {
+export const Chart = () => {
   const { dataChart } = useContext(DataContext)
-  console.log(dataChart)
+  // console.log(dataChart)
   // const { observation, id, name } = dataChart.fillingRate
   const [loading, setLoading] = useState(true)
   const [dataFiltered, setDataFiltered] = useState({
@@ -75,23 +75,69 @@ export const InfoPanel = () => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-    title: {
-      display: true,
-      text: `${name} Data Visualization`,
-      font: {
-        size: 16,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            const label = context.dataset.label || ""
+
+            const labelStartWith = label
+              .slice(0, label.indexOf(" "))
+              .toLowerCase()
+
+            const labelWithoutExtension = label.split(" ").slice(0, -1).join(" ")
+
+            if (context.parsed.y !== null) {
+              if (labelStartWith === "filling")
+                return `${labelWithoutExtension} : ${context.parsed.y.toFixed(
+                  3
+                )} %`
+              else if (labelStartWith === "surface")
+                return `${labelWithoutExtension} : ${context.parsed.y.toFixed(
+                  3
+                )} hm²`
+              else if (labelStartWith === "volume")
+                return `${labelWithoutExtension} : ${context.parsed.y.toFixed(
+                  3
+                )} hm³`
+            }
+            return labelWithoutExtension
+          },
+        },
+      },
+      legend: {
+        position: "top",
+        labels: { font: { size: 14 } },
+      },
+      zoom: {
+        pan: {
+          enabled: true,
+          modifierKey: "ctrl",
+          // onPanStart: chart => {
+          //   chart.event.changedPointers[0].target.style.cursor = "grab"
+          // },
+        },
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          drag: {
+            enabled: true,
+            backgroundColor: "rgba(0,204,255,0.15)",
+            borderColor: "rgba(0,204,255,1.00)",
+            borderWidth: 1,
+          },
+          pinch: {
+            enabled: true,
+          },
+          mode: "xy",
+        },
+        limits: {
+          y: { min: 0, max: "original" },
+        },
       },
     },
-  }
-
-  const labels = []
-  for (let i = 0; i < 152; i++) {
-    labels.push(
-      randBetweenDate({
-        from: new Date("18/05/2019"),
-        to: new Date(),
-      })
-    )
+    title: { display: true, text: "My Chart" },
   }
 
   const data = {
@@ -110,23 +156,19 @@ export const InfoPanel = () => {
     datasets: [
       {
         label: "Filling rate %",
-        data: dataFiltered.fillingRate.map(el => (1 * el.value).toFixed(2)),
+        data: dataFiltered.fillingRate.map(el => 1 * el.value),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
       {
         label: "Surface hm²",
-        data: dataFiltered.surface.map(
-          el => (1 * el.value).toFixed(2) / 10_000
-        ),
+        data: dataFiltered.surface.map(el => (1 * el.value) / 10_000),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
       {
         label: "Volume hm³",
-        data: dataFiltered.volume.map(
-          el => (1 * el.value).toFixed(2) / 1_000_000
-        ),
+        data: dataFiltered.volume.map(el => (1 * el.value) / 1_000_000),
         borderColor: "rgb(127, 255, 0)",
         backgroundColor: "rgba(127, 255, 0, 0.5)",
       },
@@ -143,14 +185,7 @@ export const InfoPanel = () => {
 
   return (
     <div style={{ ...style }}>
-      {loading ? (
-        <h2>Loading data...</h2>
-      ) : (
-        <>
-          <Line options={options} data={data} />
-          {/* <RadioInput /> */}
-        </>
-      )}
+      <Line options={options} data={data} />
     </div>
   )
 }

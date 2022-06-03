@@ -2,7 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@ant-design/icons': ^4.7.0
-  '@ngneat/falso': ^5.5.0
   '@react-leaflet/core': ^2.0.0
   '@turf/boolean-point-in-polygon': ^6.5.0
   '@types/react': ^17.0.2
@@ -10,6 +9,7 @@ specifiers:
   '@vitejs/plugin-react': ^1.3.0
   antd: ^4.20.6
   chart.js: ^3.7.1
+  chartjs-plugin-zoom: ^1.2.1
   leaflet: ^1.8.0
   leaflet.markercluster: ^1.5.3
   papaparse: ^5.3.2
@@ -24,11 +24,11 @@ specifiers:
 
 dependencies:
   '@ant-design/icons': 4.7.0_sfoxds7t5ydpegc3knd667wn6m
-  '@ngneat/falso': 5.5.0
   '@react-leaflet/core': 2.0.0_6k6ga34dyylvilikktgvdmyx6a
   '@turf/boolean-point-in-polygon': 6.5.0
   antd: 4.20.7_sfoxds7t5ydpegc3knd667wn6m
   chart.js: 3.8.0
+  chartjs-plugin-zoom: 1.2.1_chart.js@3.8.0
   leaflet: 1.8.0
   leaflet.markercluster: 1.5.3_leaflet@1.8.0
   papaparse: 5.3.2
@@ -398,13 +398,6 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.13
     dev: true
 
-  /@ngneat/falso/5.5.0:
-    resolution: {integrity: sha512-FvE8bwSpeFq8XSfUICubabhqDT8DcLm9jmg6oTy8+9jVByX1HqZPznEgktTQ3jqCPGw7vkWildxXMGlW3Bm69w==}
-    dependencies:
-      seedrandom: 3.0.5
-      uuid: 8.3.2
-    dev: false
-
   /@react-leaflet/core/1.1.1_6k6ga34dyylvilikktgvdmyx6a:
     resolution: {integrity: sha512-7PGLWa9MZ5x/cWy8EH2VzI4T8q5WpuHbixzCDXqixP/WyqwIrg5NDUPgYuFnB4IEIZF+6nA265mYzswFo/h1Pw==}
     peerDependencies:
@@ -598,6 +591,15 @@ packages:
 
   /chart.js/3.8.0:
     resolution: {integrity: sha512-cr8xhrXjLIXVLOBZPkBZVF6NDeiVIrPLHcMhnON7UufudL+CNeRrD+wpYanswlm8NpudMdrt3CHoLMQMxJhHRg==}
+    dev: false
+
+  /chartjs-plugin-zoom/1.2.1_chart.js@3.8.0:
+    resolution: {integrity: sha512-2zbWvw2pljrtMLMXkKw1uxYzAne5PtjJiOZftcut4Lo3Ee8qUt95RpMKDWrZ+pBZxZKQKOD/etdU4pN2jxZUmg==}
+    peerDependencies:
+      chart.js: ^3.2.0
+    dependencies:
+      chart.js: 3.8.0
+      hammerjs: 2.0.8
     dev: false
 
   /classnames/2.3.1:
@@ -906,6 +908,11 @@ packages:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
     engines: {node: '>=4'}
     dev: true
+
+  /hammerjs/2.0.8:
+    resolution: {integrity: sha512-tSQXBXS/MWQOn/RKckawJ61vvsDpCom87JgxiYdGwHdOa0ht0vzUWDlfioofFCRU0L+6NGDt6XzbgoJvZkMeRQ==}
+    engines: {node: '>=0.8.0'}
+    dev: false
 
   /has-flag/3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
@@ -1658,10 +1665,6 @@ packages:
       compute-scroll-into-view: 1.0.17
     dev: false
 
-  /seedrandom/3.0.5:
-    resolution: {integrity: sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==}
-    dev: false
-
   /semver/6.3.0:
     resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}
     hasBin: true
@@ -1699,11 +1702,6 @@ packages:
 
   /toggle-selection/1.0.6:
     resolution: {integrity: sha1-bkWxJj8gF/oKzH2J14sVuL932jI=}
-    dev: false
-
-  /uuid/8.3.2:
-    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
-    hasBin: true
     dev: false
 
   /vite/2.9.9:

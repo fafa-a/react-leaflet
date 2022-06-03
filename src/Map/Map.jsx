@@ -4,7 +4,7 @@ import { LayersControl, MapContainer, Polygon, TileLayer } from "react-leaflet"
 import { MarkerLayer } from "../layers/MarkerLayer"
 import { MarkerLayerWithTooltip } from "../layers/MarkerLayerWithTooltip"
 import { MarkerLayerWithTooltipCluster } from "../layers/MarkerLayerWithTooltipCluster"
-import { InfoPanel } from "../components/InfoPanel"
+import { Chart } from "../components/Chart"
 import { PolygonLayer } from "../layers/PolygonLayer"
 import { FitBoundToDataControl } from "../controls/FitDataToBounds"
 import { Andalousie } from "../data/geojson/Andalousie"
@@ -12,7 +12,6 @@ import { BurkinaFaso } from "../data/geojson/BurkinaFaso"
 import { India } from "../data/geojson/India"
 import { Occitanie } from "../data/geojson/Occitanie"
 import { Tunisia } from "../data/geojson/Tunisia"
-import { useMap } from "react-leaflet"
 
 import fillingRate from "../data/series/Andalousie/filling_rate_M01.json"
 import surface from "../data/series/Andalousie/surface_M01.json"
@@ -54,7 +53,7 @@ export const Map = () => {
   return (
     <>
       {/* <div style={{ height: v`${polygonClicked ? "55vh" : "100vh"}` }}> */}
-      <MapContainer center={[36.91, -3.54]} zoom={10} scrollWheelZoom={true}>
+      <MapContainer center={[36.91, -3.54]} zoom={11} scrollWheelZoom={true}>
         <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="OSM Strets">
             <TileLayer
@@ -101,7 +100,7 @@ export const Map = () => {
             /> */}
         </LayersControl>
       </MapContainer>
-      <InfoPanel />
+      <Chart />
       {/* </div> */}
       {/* {polygonClicked && <InfoPanel />} */}
     </>

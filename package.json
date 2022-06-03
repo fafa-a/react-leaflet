@@ -9,11 +9,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@ngneat/falso": "^5.5.0",
     "@react-leaflet/core": "^2.0.0",
     "@turf/boolean-point-in-polygon": "^6.5.0",
     "antd": "^4.20.6",
     "chart.js": "^3.7.1",
+    "chartjs-plugin-zoom": "^1.2.1",
     "leaflet": "^1.8.0",
     "leaflet.markercluster": "^1.5.3",
     "papaparse": "^5.3.2",
