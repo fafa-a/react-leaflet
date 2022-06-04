@@ -13,9 +13,9 @@ import { India } from "../data/geojson/India"
 import { Occitanie } from "../data/geojson/Occitanie"
 import { Tunisia } from "../data/geojson/Tunisia"
 
-import fillingRate from "../data/series/Andalousie/filling_rate_M01.json"
-import surface from "../data/series/Andalousie/surface_M01.json"
-import volume from "../data/series/Andalousie/volume_M01.json"
+import fillingRate from "../data/series/Andalousie/filling_rate_MO1.json"
+import surface from "../data/series/Andalousie/surface_MO1.json"
+import volume from "../data/series/Andalousie/volume_MO1.json"
 
 import { DataContext } from "../context/DataContext"
 

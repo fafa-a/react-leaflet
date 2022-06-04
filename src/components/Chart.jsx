@@ -163,14 +163,14 @@ export const Chart = () => {
       {
         label: "Surface hm²",
         data: dataFiltered.surface.map(el => (1 * el.value) / 10_000),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        borderColor: "rgb(127, 255, 0)",
+        backgroundColor: "rgba(127, 255, 0, 0.5)",
       },
       {
         label: "Volume hm³",
         data: dataFiltered.volume.map(el => (1 * el.value) / 1_000_000),
-        borderColor: "rgb(127, 255, 0)",
-        backgroundColor: "rgba(127, 255, 0, 0.5)",
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
   }
