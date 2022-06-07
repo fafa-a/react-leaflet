@@ -34,7 +34,7 @@ export const PolygonLayer = ({ data, getLakeData, isPolygonClicked }) => {
         data-coordinates={[LAT_DD, LONG_DD]}
         eventHandlers={{
           click: el => {
-            centerPolygon(el.target.options["data-coordinates"])
+            // centerPolygon(el.target.options["data-coordinates"])
             getLakeData(el.target.options["data-id"])
             handleClick()
           },
